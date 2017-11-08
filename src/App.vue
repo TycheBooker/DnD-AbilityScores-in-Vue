@@ -1,12 +1,17 @@
 <template>
   <div id="app">
+    <app-header></app-header>
     <router-view/>
   </div>
 </template>
 
 <script>
+import Header from './components/Header.vue';
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    appHeader: Header
+  }
 }
 </script>
 
@@ -14,15 +19,32 @@ export default {
 @import './styles/reset.scss';
 @import './styles/base.scss';
 @import './styles/fonts.scss';
-</style>
 
-<style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'BookInsanity', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: $warm-black;
+}
+
+.btn {
+  font-family: MrEaves;
+  padding: 10px 20px;
+  border: 1px solid;
+  color: $warm-black;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+
+  &:disabled {
+    background-color: $gray;
+    color: $sonic-silver;
+    cursor: auto;
+  }
+}
+
+span {
+  display: inline-block;
 }
 </style>

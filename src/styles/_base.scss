@@ -32,6 +32,6 @@ a {
 }
 
 .padded {
-  @include break-prop(padding-left padding-right, 30px, $gutter);
+  @include break-prop(padding-left padding-right, $gutter, $gutter/2);
 }
 
