@@ -37,32 +37,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-  .abilities-array {
-    padding: $gutter;
-
-    span {
-      margin-left: $gutter;
-      margin-right: $gutter;
-      color: $rust;
-      font-size: 28px;
-      cursor: pointer;
-      transition: transform 0.3s;
-
-      &:hover {
-        transform: translateY(-5px);
-      }
-    }
-  }
-
-
-  .ability-label {
-    display: inline-block;
-    width: 150px;
-    padding: 10px;
-  }
-</style>
-
 <style lang="scss" scoped>
   .abilities-container {
     p {

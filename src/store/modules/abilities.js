@@ -1,7 +1,15 @@
-// const state = {
-//   funds: 10000,
-//   stocks: []
-// }
+const state = {
+  abilitiesStandard: {
+    abilityScores: {
+      str: "",
+      dex: "",
+      con: "",
+      int: "",
+      wis: "",
+      cha: ""
+    }
+  }
+}
 
 // const mutations = {
 //   'BUY_STOCK'(state, {stockId, quantity, stockPrice}) {
@@ -56,9 +64,10 @@
 //   }
 // };
 
-// export default {
-//   state,
-//   mutations,
-//   actions,
-//   getters
-// }
+export default {
+  namespaced: true,
+  state,
+  // mutations,
+  // actions,
+  // getters
+}

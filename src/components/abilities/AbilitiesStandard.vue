@@ -1,27 +1,29 @@
 <template>
   <div class="abilities-standard">
-    <div class="abilities-array">
-      <span v-for="score in abilitiesStandardArray" :key="score" @click="pickUp(score)">{{score}}</span>
-    </div>
-    <ability-scores-form :pickedUpScore="pickedUpScore" @scoreDropped="pickedUpScore=0"></ability-scores-form>
+    <abilities-array :abilitiesArray="abilitiesStandardArray" :pickedUpScore="pickedUpScore" :dropedScoreIndex="dropedScoreIndex" @scorePickedUp="pickedUpScore=$event" @resetScores="dropedScoreIndex=[]"></abilities-array>
+    <ability-scores-form :pickedUpScore="pickedUpScore" @scoreDropped="dropScore($event)"></ability-scores-form>
   </div>
 </template>
 
 <script>
 import AbilityScoresForm from './AbilityScoresForm.vue';
+import AbilitiesArray from './AbilitiesArray.vue';
 export default {
   components: {
-    AbilityScoresForm
+    AbilityScoresForm,
+    AbilitiesArray
   },
   data() {
     return {
       abilitiesStandardArray: [15, 14, 13, 12, 10, 8],
       pickedUpScore: 0,
+      dropedScoreIndex: [],
     }
   },
   methods: {
-    pickUp(score) {
-      this.pickedUpScore = score;
+    dropScore(index) {
+      this.pickedUpScore = 0;
+      this.dropedScoreIndex.push(index);
     },
   }
 }
