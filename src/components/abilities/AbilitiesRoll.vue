@@ -5,8 +5,8 @@
     <div class="dice-results">
       <span class="dice-result" v-for="result in results" :key="result">{{result}}</span>
     </div>
-    <abilities-array :abilitiesArray="resultsTotal" :pickedUpScore="pickedUpScore" @scorePickedUp="pickedUpScore=$event"></abilities-array>
-    <ability-scores-form :pickedUpScore="pickedUpScore" @scoreDropped="pickedUpScore=0"></ability-scores-form>
+    <abilities-array :abilitiesArray="resultsTotal" :pickedUpScore="pickedUpScore" :dropedScoreIndex="dropedScoreIndex" @scorePickedUp="pickedUpScore=$event" @resetScores="resetScores"></abilities-array>
+    <ability-scores-form :pickedUpScore="pickedUpScore" :abilityScoresProp="abilityScores" @scoreDropped="dropScore($event)"></ability-scores-form>
   </div>
 </template>
 
@@ -22,7 +22,16 @@ export default {
     return {
       results: [],
       resultsTotal: [],
-      pickedUpScore: 0
+      pickedUpScore: 0,
+      dropedScoreIndex: [],
+      abilityScores: {
+        str: "",
+        dex: "",
+        con: "",
+        int: "",
+        wis: "",
+        cha: ""
+      }
     }
   },
   methods: {
@@ -40,6 +49,21 @@ export default {
       this.results = [];
       this.resultsTotal = [];
     },
+    dropScore(index) {
+      this.pickedUpScore = 0;
+      this.dropedScoreIndex.push(index);
+    },
+    resetScores() {
+      this.dropedScoreIndex = [];
+      this.abilityScores = {
+        str: "",
+        dex: "",
+        con: "",
+        int: "",
+        wis: "",
+        cha: ""
+      }
+    }
   }
 }
 </script>

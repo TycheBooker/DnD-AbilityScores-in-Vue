@@ -3,7 +3,7 @@
     <form action="">
       <div class="input-group" @click="assignScore" v-for="ability in abilities" :key="ability.short">
         <label :for="ability.short" class="ability-label">{{ability.name}}</label>
-        <input type="number" :id="ability.short" v-model="ability.score" :disabled="!manualEntry" :class="{'ready-to-drop': pickedUpScore}">
+        <input type="number" :id="ability.short" v-model="abilityScores[ability.short]" :disabled="!manualEntry" :class="{'ready-to-drop': pickedUpScore}">
         <span class="modifier">{{getModifier(ability.short)}}</span>
       </div>
     </form>
@@ -19,6 +19,18 @@ export default {
     },
     pickedUpScore: {
       default: 0,
+    },
+    abilityScoresProp: {
+      default() {
+        return {
+          str: "",
+          dex: "",
+          con: "",
+          int: "",
+          wis: "",
+          cha: ""
+        }
+      }
     }
   },
   data() {
@@ -26,33 +38,27 @@ export default {
       abilities: [
         {
           short: "str",
-          name: "Strength",
-          score: ""
+          name: "Strength"
         },
         {
           short: "dex",
-          name: "Dexterity",
-          score: ""
+          name: "Dexterity"
         },
         {
           short: "con",
-          name: "Constitution",
-          score: ""
+          name: "Constitution"
         },
         {
           short: "int",
-          name: "Intelligence",
-          score: ""
+          name: "Intelligence"
         },
         {
           short: "wis",
-          name: "Wisdom",
-          score: ""
+          name: "Wisdom"
         },
         {
           short: "cha",
-          name: "Charisma",
-          score: ""
+          name: "Charisma"
         }
       ],
     }
@@ -60,12 +66,15 @@ export default {
   computed: {
     activeScore() {
       return this.pickedUpScore
+    },
+    abilityScores() {
+      return this.abilityScoresProp;
     }
   },
   methods: {
     getModifier(abShort) {
-      let thisAbility = this.abilities.find((ability) => { return ability.short == abShort});
-      let n = Math.floor((parseInt(thisAbility.score) - 10) / 2);
+      let thisAbility = this.abilityScores[abShort];
+      let n = Math.floor((parseInt(thisAbility) - 10) / 2);
       return (Number.isInteger(n)) ? (n<=0?"":"+") + n : "";
     },
     assignScore() {
