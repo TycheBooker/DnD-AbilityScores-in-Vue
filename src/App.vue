@@ -38,9 +38,8 @@ export default {
   display: inline-block;
 
   &:disabled {
-    background-color: $gray;
-    color: $sonic-silver;
-    cursor: auto;
+    opacity: 0.5;
+    cursor: default;
   }
 }
 

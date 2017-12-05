@@ -3,7 +3,9 @@
     <form action="">
       <div class="input-group" @click="assignScore" v-for="ability in abilities" :key="ability.short">
         <label :for="ability.short" class="ability-label">{{ability.name}}</label>
-        <input type="number" :id="ability.short" v-model="abilityScores[ability.short]" :disabled="!manualEntry" :class="{'ready-to-drop': pickedUpScore}">
+        <button v-if="increments" class="input-btn small" @click="decrease(ability.short)" :disabled="abilityScores[ability.short]<9">-</button>
+        <input type="number" min="3" max="18" class="input-btn" :id="ability.short" v-model="abilityScores[ability.short]" :disabled="!manualEntry" :class="{'ready-to-drop': pickedUpScore}">
+        <button v-if="increments" class="input-btn small" @click="increase(ability.short)" :disabled="abilityScores[ability.short]>14">+</button>
         <span class="modifier">{{getModifier(ability.short)}}</span>
       </div>
     </form>
@@ -14,6 +16,10 @@
 export default {
   props: {
     manualEntry: {
+      type: Boolean,
+      default: false
+    },
+    increments: {
       type: Boolean,
       default: false
     },
@@ -82,6 +88,14 @@ export default {
       event.currentTarget.querySelector('input').value = this.activeScore.score;
       event.currentTarget.querySelector('input').dispatchEvent(new Event('input'));
       this.$emit('scoreDropped', this.activeScore.index);
+    },
+    increase(abShort) {
+      this.abilityScores[abShort] ++;
+      this.$emit('scoreIncreased', this.abilityScores[abShort]);
+    },
+    decrease(abShort) {
+      this.abilityScores[abShort] --;
+      this.$emit('scoreDecreased', this.abilityScores[abShort]);
     }
   },
   mounted() {
@@ -99,14 +113,27 @@ export default {
     margin: 0 auto;
     text-align: left;
 
-    input {
+    .input-btn  {
       display: inline-block;
       width: 40px;
       border: 1px solid $warm-black;
       border-radius: 4px;
       padding: 6px;
       text-align: center;
+      will-change: opacity;
 
+      &.small {
+        width: 26px;
+        padding: 3px;
+        cursor: pointer;
+
+        &:disabled {
+          opacity: 0.5;
+        }
+      }
+    }
+
+    input {
       &.ready-to-drop {
         cursor: pointer;
       }

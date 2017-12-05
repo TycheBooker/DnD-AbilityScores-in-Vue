@@ -1,10 +1,10 @@
 <template>
-  <div class="abilities-array">
+  <transition-group name="abilities-array-transition" class="abilities-array" tag="div">
     <span v-for="(score, index) in abilitiesArray" :key="index" @click="pickUp(score, index)" :class="{used: usedScores.includes(index)}">{{score}}</span>
-    <button class="refresh-button" @click="resetScores">
+    <button class="refresh-button" @click="resetScores" key="button">
       <refresh-icon></refresh-icon>
     </button>
-  </div>
+  </transition-group>
 </template>
 
 <script>
@@ -56,7 +56,8 @@ export default {
       color: $rust;
       font-size: 28px;
       cursor: pointer;
-      transition: transform 0.3s;
+      transition: all 0.3s;
+      transform-origin: center;
 
       &:hover {
         transform: translateY(-5px);
@@ -79,5 +80,11 @@ export default {
       width: 30px;
       height: 30px;
     }
+  }
+
+  .abilities-array-transition-enter,
+  .abilities-array-transition-leave-to {
+    opacity: 0;
+    transform: scale(0.3);
   }
 </style>

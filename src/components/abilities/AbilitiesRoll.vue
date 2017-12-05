@@ -2,9 +2,9 @@
   <div class="abilities-roll">
     <button class="btn" @click="roll" :disabled="resultsTotal.length>5">Roll!</button>
     <button class="btn" @click="restart" v-if="resultsTotal.length>0">Restart!</button>
-    <div class="dice-results">
-      <span class="dice-result" v-for="result in results" :key="result">{{result}}</span>
-    </div>
+    <transition-group name="result-transition" class="dice-results" tag="div">
+      <span class="dice-result" v-for="(result, index) in results" :key="result.id" :class="{'no-flip': noFlip}">{{result.value}}</span>
+    </transition-group>
     <abilities-array :abilitiesArray="resultsTotal" :pickedUpScore="pickedUpScore" :dropedScoreIndex="dropedScoreIndex" @scorePickedUp="pickedUpScore=$event" @resetScores="resetScores"></abilities-array>
     <ability-scores-form :pickedUpScore="pickedUpScore" :abilityScoresProp="abilityScores" @scoreDropped="dropScore($event)"></ability-scores-form>
   </div>
@@ -22,6 +22,7 @@ export default {
     return {
       results: [],
       resultsTotal: [],
+      noFlip: false,
       pickedUpScore: 0,
       dropedScoreIndex: [],
       abilityScores: {
@@ -37,17 +38,28 @@ export default {
   methods: {
     roll() {
       this.results = [];
-      for (let i=0; i < 4; i++) {
-        this.results.push(Math.floor(Math.random() * 6) + 1)
-      }
       setTimeout(() => {
-        this.results.splice(this.results.findIndex((result) => result === Math.min.apply(Math, this.results)), 1);
-        this.resultsTotal.push(this.results.reduce((a, b) => a + b, 0));
-      }, 500);
+        for (let i=0; i < 4; i++) {
+          let result = {
+            value: Math.floor(Math.random() * 6) + 1,
+            id: this.results.length + 1
+          }
+          this.results.push(result);
+        }
+      }, 100);
+      setTimeout(() => {
+        let resultsMin = this.results.reduce((prev, curr) => {
+          return prev.value < curr.value ? prev : curr;
+        });
+        this.results.splice(this.results.findIndex((result) => result.value === resultsMin.value), 1);
+        this.resultsTotal.push(this.results.reduce((a, b) => a + b.value, 0));
+      }, 1000);
     },
     restart() {
+      this.noFlip = true;
       this.results = [];
       this.resultsTotal = [];
+      this.noFlip = false;
     },
     dropScore(index) {
       this.pickedUpScore = 0;
@@ -75,10 +87,26 @@ export default {
     border-radius: 4px;
     max-width: colw(2);
     height: 49px;
+    position: relative;
   }
 
   .dice-result {
     padding: $gutter/2;
+    transition: all 1s;
+  }
+
+  .result-transition-enter,
+  .result-transition-leave-to {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+
+  .result-transition-leave-active {
+    position: absolute;
+  }
+
+  .no-flip {
+    position: relative !important;
   }
 </style>
 
