@@ -1,6 +1,6 @@
 <template>
   <transition-group name="abilities-array-transition" class="abilities-array" tag="div">
-    <span v-for="(score, index) in abilitiesArray" :key="index" @click="pickUp(score, index)" :class="{used: usedScores.includes(index)}">{{score}}</span>
+    <span v-for="(score, index) in abilitiesArray" :key="score" @click="pickUp(score, index)" :class="{used: usedScores.includes(index)}">{{score}}</span>
     <button class="refresh-button" @click="resetScores" key="button">
       <refresh-icon></refresh-icon>
     </button>

@@ -3,7 +3,7 @@
     <button class="btn" @click="roll" :disabled="resultsTotal.length>5">Roll!</button>
     <button class="btn" @click="restart" v-if="resultsTotal.length>0">Restart!</button>
     <transition-group name="result-transition" class="dice-results" tag="div">
-      <span class="dice-result" v-for="(result, index) in results" :key="result.id" :class="{'no-flip': noFlip}">{{result.value}}</span>
+      <span class="dice-result" v-for="result in results" :key="result.id" :class="{'no-flip': noFlip}">{{result.value}}</span>
     </transition-group>
     <abilities-array :abilitiesArray="resultsTotal" :pickedUpScore="pickedUpScore" :dropedScoreIndex="dropedScoreIndex" @scorePickedUp="pickedUpScore=$event" @resetScores="resetScores"></abilities-array>
     <ability-scores-form :pickedUpScore="pickedUpScore" :abilityScoresProp="abilityScores" @scoreDropped="dropScore($event)"></ability-scores-form>

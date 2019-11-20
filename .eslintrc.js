@@ -2,18 +2,17 @@
 
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
   parserOptions: {
+    parser: 'babel-eslint',
     sourceType: 'module'
   },
   env: {
     browser: true,
   },
-  // required to lint *.vue files
-  plugins: [
-    'html'
+  extends: [
+    'eslint:recommended',
+    'plugin:vue/base'
   ],
-  extends: ['eslint:recommended'],
   // add your custom rules here
   rules: {
     // allow debugger and console during development
