@@ -1,6 +1,6 @@
 <template>
   <div class="new-character">
-    <h1>New Character</h1>
+    <h1>Character Ability Scores</h1>
     <div class="abilities-container">
       <p>Pick a way to enter your ability scores:</p>
       <button class="btn" @click="activeMode='abilities-manual'">Manual Entry</button>

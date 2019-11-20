@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <router-link to="/new-character" class="btn">New Character</router-link>
+    <router-link to="/new-character" class="btn">Start</router-link>
   </div>
 </template>
 

@@ -1,6 +1,11 @@
-# dnd
+# Vue ability score builder
 
-> A Vue.js interactive character sheet for D&D 5e
+> A Vue.js interactive ability score generator for D&D 5e
+Allows multiple ways of assigning or generating ability scores for D&D 5e characters.
+  - manual entry
+  - rolling
+  - point buy
+  - standard array
 
 ## Build Setup
 

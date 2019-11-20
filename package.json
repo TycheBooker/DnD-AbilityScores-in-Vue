@@ -1,7 +1,7 @@
 {
-  "name": "dnd",
+  "name": "ability-scores",
   "version": "1.0.0",
-  "description": "A Vue.js interactive character sheet for D&D 5e",
+  "description": "A Vue.js interactive ability score generator for D&D 5e",
   "author": "Tihana Bihler <tihana.bihler@gmail.com>",
   "private": true,
   "scripts": {
